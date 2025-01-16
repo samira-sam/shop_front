@@ -7,10 +7,26 @@ import { reactive } from "vue";
 import data from "./data/products";
 
 // récupération des données depuis le fichier products dans data
-const products = reactive(data);
+const products = reactive([]);
 const cart = reactive([]); //pour ajouter les produit dans le tableau vide
 
+async function getProduct() {
+  try{
+    const response = await fetch('http://localhost:5000/');
+    let data = await response.json();
+    product.splice(0,products.length,...data);
 
+  }
+
+   catch(error){
+    console.log(error);
+    
+  }
+}
+
+onMounted( () =>{
+getProduct();
+});
 
 // creer une fonction pr ajouter produit au panier
 function addProducToCart(productId) {
